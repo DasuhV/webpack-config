@@ -1,6 +1,7 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
 import webpack from 'webpack'
+//types for dev-server
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server'
 
 type Mode = 'development' | 'production'
@@ -32,8 +33,15 @@ export default (env: EnvVariables) => {
 		module: {
 			rules: [
 				{
-					test: /\.css$/i,
-					use: ['style-loader', 'css-loader'],
+					test: /\.s[ac]ss$/i,
+					use: [
+						// Creates `style` nodes from JS strings
+						'style-loader',
+						// Translates CSS into CommonJS
+						'css-loader',
+						// Compiles Sass to CSS
+						'sass-loader',
+					],
 				},
 				{
 					test: /\.tsx?$/,
@@ -45,10 +53,13 @@ export default (env: EnvVariables) => {
 		resolve: {
 			extensions: ['.tsx', '.ts', '.js'],
 		},
-		devServer: {
-			port: 5000,
-			open: true
-		},
+		devtool: 'inline-source-map',
+		devServer: isDev
+			? {
+					port: env.port ?? 5000,
+					open: true,
+			  }
+			: undefined,
 	}
 	return config
 }
