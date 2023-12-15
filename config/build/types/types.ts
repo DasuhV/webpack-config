@@ -1,7 +1,8 @@
 export interface BuildPaths{
 	entry: string,
 	html:string
-	output:string,
+	output: string,
+	src:string
 }
 export type BuildMode = 'development' | 'production'
 

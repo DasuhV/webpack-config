@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import App from './components/App'
-import { LazyShop } from './pages/shop/Shop.lazy'
-import { LazyAbout } from './pages/about/About.lazy'
+import App from './components/App/App'
+import { LazyShop } from '@/pages/shop/Shop.lazy'
+import { LazyAbout } from '@/pages/about/About.lazy'
 import { Suspense } from 'react'
 
 const router = createBrowserRouter([
