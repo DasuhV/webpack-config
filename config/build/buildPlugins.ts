@@ -16,6 +16,7 @@ export const buildPlugins = (options: BuildOptions): Configuration['plugins'] =>
 			new MiniCssExtractPlugin({
 				filename: 'css/[name].[contenthash:8].css',
 				chunkFilename: 'css/[name].[contenthash:8].css',
+
 			}),
 		//progressplagin замедляет сборку
 		isDev && new webpack.ProgressPlugin(),
