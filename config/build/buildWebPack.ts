@@ -6,7 +6,9 @@ import { buildResolvers } from './buildResolvers'
 import { BuildOptions } from './types/types'
 import webpack from 'webpack'
 
-export const buildWebPack = (options:BuildOptions):webpack.Configuration => {
+export const buildWebPack = (options: BuildOptions): webpack.Configuration => {
+	const isDev = options.mode === 'development'
+	
 	return {
 		mode: options.mode ?? 'development',
 		entry: options.paths.entry,
@@ -22,6 +24,6 @@ export const buildWebPack = (options:BuildOptions):webpack.Configuration => {
 		},
 		resolve: buildResolvers(),
 		devtool: 'inline-source-map',
-		devServer: buildDevServer(options),
+		devServer: isDev? buildDevServer(options): undefined,
 	}
 }	
