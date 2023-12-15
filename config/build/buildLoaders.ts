@@ -4,16 +4,8 @@ import { BuildOptions } from './types/types'
 
 export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
 	const isDev = options.mode === 'development'
-	
-	const cssModuleLoader = {
-		test: /\.css$/i,
-		loader: 'css-loader',
-		options: {
-			modules: {
-				localIdentName:  '[path][name]__[local]',
-			},
-		},
-	}
+
+	//compiles styles
 	const scssLoader = {
 		test: /\.s[ac]ss$/i,
 		use: [
@@ -22,9 +14,10 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
 			// Translates CSS into CommonJS
 			{
 				loader: 'css-loader',
+				// option for  css module
 				options: {
 					modules: {
-						localIdentName: isDev? '[path][name]__[local]':'[hash:base64:8]',
+						localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64:8]',
 					},
 				},
 			},
@@ -32,10 +25,11 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
 			'sass-loader',
 		],
 	}
+	//compiles ts,tsx and jsx
 	const tsLoader = {
 		test: /\.tsx?$/,
 		use: 'ts-loader',
 		exclude: /node_modules/,
 	}
-	return [  scssLoader, tsLoader ]
+	return [scssLoader, tsLoader]
 }

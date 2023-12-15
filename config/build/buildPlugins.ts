@@ -1,11 +1,14 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+
 import path from 'path'
 import webpack, { Configuration }  from 'webpack'
 import { BuildOptions } from './types/types'
 
 export const buildPlugins = (options: BuildOptions): Configuration['plugins'] => {
 	const isDev = options.mode === 'development'
+
 	return [
 		//For html
 		new HtmlWebpackPlugin({
@@ -16,8 +19,9 @@ export const buildPlugins = (options: BuildOptions): Configuration['plugins'] =>
 			new MiniCssExtractPlugin({
 				filename: 'css/[name].[contenthash:8].css',
 				chunkFilename: 'css/[name].[contenthash:8].css',
-
 			}),
+		// bundle analyzer
+		options.analyzer && new BundleAnalyzerPlugin(),
 		//progressplagin замедляет сборку
 		isDev && new webpack.ProgressPlugin(),
 	].filter(Boolean)
