@@ -7,18 +7,12 @@ import snail from '@/assets/snail.png'
 //style
 import styles from './App.module.scss'
 
-const test = (a: number, b: number) => a + b
 
 const App = () => {
 	const [count, setCount] = useState(0)
-	if (__PLATFORM__ === 'desktop') {
-		console.log(`this is desktop ${test(1,3)} you babe `);
+	__PLATFORM__ === 'desktop' ? console.log(`this is desktop babe `):console.log('this is mobile honey')
 		
-	}
-	if (__PLATFORM__ === 'mobile') {
-		console.log('this is mobile honey')
-		
-	}
+
 	
 	return (
 		<>
@@ -28,7 +22,7 @@ const App = () => {
 			</Link>
 			<br />
 			<Link to={'/shop'}>
-				<Nike color='red' width={100} height={100} />
+				<Nike fill='green' width={100} height={100} />
 			</Link>
 
 			<h1>{count}</h1>
