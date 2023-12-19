@@ -3,16 +3,18 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 import path from 'path'
-import webpack, { Configuration }  from 'webpack'
+import webpack, { Configuration, DefinePlugin }  from 'webpack'
 import { BuildOptions } from './types/types'
 
 export const buildPlugins = (options: BuildOptions): Configuration['plugins'] => {
 	const isDev = options.mode === 'development'
-
 	return [
 		//For html
 		new HtmlWebpackPlugin({
-			template: options.paths.html
+			template: options.paths.html,
+		}),
+		new webpack.DefinePlugin({
+			__PLATFORM__: JSON.stringify(options.platform),
 		}),
 		//For css
 		!isDev &&
