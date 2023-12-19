@@ -33,7 +33,6 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
 			},
 		],
 	}
-
 	//compiles styles
 	const scssLoader = {
 		test: /\.s[ac]ss$/i,
@@ -57,8 +56,16 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
 	//compiles ts,tsx and jsx
 	const tsLoader = {
 		test: /\.tsx?$/,
-		use: 'ts-loader',
+		use: [
+			{
+				loader: 'ts-loader',
+				options: {
+					transpileOnly: true,
+				},
+			},
+		],
 		exclude: /node_modules/,
 	}
+
 	return [assetLoader, scssLoader, tsLoader, svgrLoader]
 }

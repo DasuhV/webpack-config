@@ -1,19 +1,25 @@
 import { useState } from 'react'
-//style
-import Nike from '@/assets/nike.svg'
-import snail from '@/assets/snail.png'
 import { Outlet } from 'react-router'
 import { Link } from 'react-router-dom'
+//assets
+import Nike from '@/assets/nike.svg'
+import snail from '@/assets/snail.png'
+//style
 import styles from './App.module.scss'
-import { log } from 'console'
+
+const test = (a: number, b: number) => a + b
+
 const App = () => {
 	const [count, setCount] = useState(0)
 	if (__PLATFORM__ === 'desktop') {
-		console.log('thisisdesktopbabe');
+		console.log(`this is desktop ${test(1,3)} you babe `);
+		
 	}
 	if (__PLATFORM__ === 'mobile') {
-		console.log('thisismobilehoney')
+		console.log('this is mobile honey')
+		
 	}
+	
 	return (
 		<>
 			<h1> __PLATFORM__:{__PLATFORM__}</h1>
