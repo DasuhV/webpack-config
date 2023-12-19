@@ -2,10 +2,12 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
 import { Configuration, DefinePlugin, ProgressPlugin } from 'webpack'
 import { BuildOptions } from './types/types'
+import path from 'path'
 
 export const buildPlugins = (
 	options: BuildOptions
@@ -15,6 +17,7 @@ export const buildPlugins = (
 		//For html
 		new HtmlWebpackPlugin({
 			template: options.paths.html,
+			favicon: options.paths.publicIcon,
 		}),
 		//for variables
 		new DefinePlugin({
@@ -24,6 +27,12 @@ export const buildPlugins = (
 		new ForkTsCheckerWebpackPlugin(),
 		// for hot module replacment
 		new ReactRefreshWebpackPlugin(),
+		// for copy
+		new CopyPlugin({
+			patterns: [
+				{ from: path.resolve(options.paths.public,'locale' ) , to: path.resolve(options.paths.output,'locale') },
+			],
+		}),
 		//For css
 		!isDev &&
 			new MiniCssExtractPlugin({
