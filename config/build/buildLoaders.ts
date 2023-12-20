@@ -2,7 +2,18 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { ModuleOptions } from 'webpack'
 import { BuildOptions } from './types/types'
 import ReactRefreshTypeScript from 'react-refresh-typescript'
-
+import { buildBabelLoader } from './babel/buildBabelLoader'
+/**
+ * This TypeScript code defines a function called "buildLoaders" that returns an array of loaders for use with Webpack. 
+ * The function takes a "BuildOptions" object as input 
+ * and returns an array of loaders that are used to compile the project's assets, including images, SVGs, and CSS.
+ * The function also includes a loader for TypeScript files 
+ * that uses the ReactRefreshTypeScript transformer to enable hot reloading in development.
+ * 
+ * Also we can work with not only with babel we can try:
+ * swc(speedy web compiler) loader
+ * or esbuild loader
+ */
 export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
 	const isDev = options.mode === 'development'
 
@@ -71,5 +82,13 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
 		exclude: /node_modules/,
 	}
 
-	return [assetLoader, scssLoader, tsLoader, svgrLoader]
+	//compiles tsx,react,and creating an abstract syntax tree(ast)
+	const babelLoader = buildBabelLoader(options)
+	
+	return [
+		assetLoader,
+		scssLoader,
+		//tsLoader,
+		babelLoader,
+		svgrLoader]
 }

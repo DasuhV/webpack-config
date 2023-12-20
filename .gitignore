@@ -4,3 +4,4 @@ node_modules
 # production
 build
 
+legendary__webpack.config.js
