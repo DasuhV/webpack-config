@@ -31,6 +31,7 @@ export const buildPlugins = (
 		//for variables
 		new DefinePlugin({
 			__PLATFORM__: JSON.stringify(options.platform),
+			__MODE__: JSON.stringify(options.mode)
 		}),
 		//for ts checking (распараллелили сборки и проверку типов)
 		new ForkTsCheckerWebpackPlugin(),
